@@ -1,5 +1,11 @@
-Bin size 2: Gamma(5)= 1.76139
-Bin size 8: Gamma(5)= 21.6484
-Bin size 32: Gamma(5)= 24.0229
-Bin size 64: Gamma(5)= 24.0114
-Bin size 1024: Gamma(5)= 24.0007
+Bin size 2: Gamma(4)= 1.23053
+Bin size 4: Gamma(4)= 3.55663
+Bin size 8: Gamma(4)= 5.84132
+Bin size 16: Gamma(4)= 6.04137
+Bin size 32: Gamma(4)= 6.02266
+Bin size 64: Gamma(4)= 6.01141
+Bin size 128: Gamma(4)= 6.00573
+Bin size 256: Gamma(4)= 6.00287
+Bin size 512: Gamma(4)= 6.00144
+Bin size 1024: Gamma(4)= 6.00072
+Bin size 2048: Gamma(4)= 6.00036
