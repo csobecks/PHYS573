@@ -5,17 +5,21 @@ using namespace std;
 
 int main (){
   double first,mid,last,fact;
-  double integral=0;
+  double integral=0.0;
   double mp,fp;
   double ep=0.0;
-  unsigned double bin=1<<32;
+  double bin=1<<1;
+  double elapsed;
   ofstream myfile;
+  myfile.open("SolvedInt.txt");
   
   cout<<"pick a number:";
   cin>>fact;
   cout<<"thanks"<<endl;
-   
-  for (int i=1; ep<=2; i++){
+
+  //bin size 1
+  cout<<"bin size"<<bin<<endl;
+  for (int i=1; ep<=1; i++){
     fp=i/bin;
     ep=(i+1)/bin;
     mp=(fp+ep)/2;
@@ -23,21 +27,98 @@ int main (){
     mid=pow(mp, fact-1.0)*exp((-1.0)*mp);
     last=pow(ep,fact-1.0)*exp((-1.0)*ep);
     integral+=((ep-fp)/6.0)*(first+(4.0*mid)+last);
+  
+    first=pow(fp, -1.0-fact)*exp((-1.0)*(1/fp));
+    mid=pow(mp, -1.0-fact)*exp((-1.0)*(1/mp));
+    last=pow(ep, -1.0-fact)*exp((-1.0)*(1/ep));
+    integral+=((ep-fp)/6.0)*(first+(4.0*mid)+last);
   }
-  for (int i=2*bin-1; fp>0; i--){
+  myfile << "Bin size "<< bin <<": Gamma(" << fact << ")= " << integral << endl;
+
+  //bin size 2
+  integral=0;
+  bin=1<<3;
+  ep=0;
+  cout<<"bin size"<<bin<<endl;
+  for (int i=1; ep<=1; i++){
     fp=i/bin;
-    if(fp==0){break;}
     ep=(i+1)/bin;
     mp=(fp+ep)/2;
-    first=pow(fp, 1.0-fact)*exp((-1.0)*(1/fp));
-    mid=pow(mp, 1.0-fact)*exp((-1.0)*(1/mp));
-    last=pow(ep, 1.0-fact)*exp((-1.0)*(1/ep));
+    first=pow(fp, fact-1.0)*exp((-1.0)*fp);
+    mid=pow(mp, fact-1.0)*exp((-1.0)*mp);
+    last=pow(ep,fact-1.0)*exp((-1.0)*ep);
     integral+=((ep-fp)/6.0)*(first+(4.0*mid)+last);
-    cout<<"integral value is"<<integral<<endl;
+  
+    first=pow(fp, -1.0-fact)*exp((-1.0)*(1/fp));
+    mid=pow(mp, -1.0-fact)*exp((-1.0)*(1/mp));
+    last=pow(ep, -1.0-fact)*exp((-1.0)*(1/ep));
+    integral+=((ep-fp)/6.0)*(first+(4.0*mid)+last);
   }
-  cout <<"done looping"<<endl;
-  myfile.open("SolvedInt.txt");
-  myfile << "Gamma(" << fact << ")= " << integral << endl;
+  myfile << "Bin size "<< bin <<": Gamma(" << fact << ")= " << integral <<endl;
+
+  //bin size 3
+  integral=0;
+  bin=1<<5;
+  ep=0;
+  cout<<"bin size"<<bin<<endl;
+  for (int i=1; ep<=1; i++){
+    fp=i/bin;
+    ep=(i+1)/bin;
+    mp=(fp+ep)/2;
+    first=pow(fp, fact-1.0)*exp((-1.0)*fp);
+    mid=pow(mp, fact-1.0)*exp((-1.0)*mp);
+    last=pow(ep,fact-1.0)*exp((-1.0)*ep);
+    integral+=((ep-fp)/6.0)*(first+(4.0*mid)+last);
+  
+    first=pow(fp, -1.0-fact)*exp((-1.0)*(1/fp));
+    mid=pow(mp, -1.0-fact)*exp((-1.0)*(1/mp));
+    last=pow(ep, -1.0-fact)*exp((-1.0)*(1/ep));
+    integral+=((ep-fp)/6.0)*(first+(4.0*mid)+last);
+  }
+  myfile << "Bin size "<< bin <<": Gamma(" << fact << ")= " << integral << endl;
+
+  //bin size 4
+  integral=0;
+  bin=1<<6;
+  ep=0;
+  cout<<"bin size"<<bin<<endl;
+  for (int i=1; ep<=1; i++){
+    fp=i/bin;
+    ep=(i+1)/bin;
+    mp=(fp+ep)/2;
+    first=pow(fp, fact-1.0)*exp((-1.0)*fp);
+    mid=pow(mp, fact-1.0)*exp((-1.0)*mp);
+    last=pow(ep,fact-1.0)*exp((-1.0)*ep);
+    integral+=((ep-fp)/6.0)*(first+(4.0*mid)+last);
+  
+    first=pow(fp, -1.0-fact)*exp((-1.0)*(1/fp));
+    mid=pow(mp, -1.0-fact)*exp((-1.0)*(1/mp));
+    last=pow(ep, -1.0-fact)*exp((-1.0)*(1/ep));
+    integral+=((ep-fp)/6.0)*(first+(4.0*mid)+last);
+  }
+  myfile << "Bin size "<< bin <<": Gamma(" << fact << ")= " << integral << endl;
+
+  //bin size 5
+  integral=0;
+  bin=1<<10;
+  ep=0;
+  cout<<"bin size"<<bin<<endl;
+  for (int i=1; ep<=1; i++){
+    fp=i/bin;
+    ep=(i+1)/bin;
+    mp=(fp+ep)/2;
+    first=pow(fp, fact-1.0)*exp((-1.0)*fp);
+    mid=pow(mp, fact-1.0)*exp((-1.0)*mp);
+    last=pow(ep,fact-1.0)*exp((-1.0)*ep);
+    integral+=((ep-fp)/6.0)*(first+(4.0*mid)+last);
+  
+    first=pow(fp, -1.0-fact)*exp((-1.0)*(1/fp));
+    mid=pow(mp, -1.0-fact)*exp((-1.0)*(1/mp));
+    last=pow(ep, -1.0-fact)*exp((-1.0)*(1/ep));
+    integral+=((ep-fp)/6.0)*(first+(4.0*mid)+last);
+  }
+  myfile << "Bin size "<< bin <<": Gamma(" << fact << ")= " << integral << endl;
+
   myfile.close();
   cout<<"file written"<<endl;
   return 0;

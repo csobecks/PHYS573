@@ -1,0 +1,5 @@
+Bin size 2: Gamma(5)= 1.76139
+Bin size 8: Gamma(5)= 21.6484
+Bin size 32: Gamma(5)= 24.0229
+Bin size 64: Gamma(5)= 24.0114
+Bin size 1024: Gamma(5)= 24.0007
