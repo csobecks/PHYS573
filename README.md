@@ -1,2 +1,3 @@
 # PHYS573
-Numerical Methods at UTK
+Numerical Methods 
+Graduate Course at University of Tennessee, Knoxville.
