@@ -3,45 +3,62 @@
 #include <cmath>
 using namespace std;
 
+double Pleg(int,int,double);
+double xval(double,int);
+double factorial(int);
+double doubfact(int);
+double Leg(int,int,double);
+
+
+double Leg(int l, int m, double x){
+    double PI=3.141592653589793;
+    double val=Pleg(l,m,x);
+    if(val==-1){return -1;}
+    else{
+        return sqrt(((4*PI)*factorial(l+m))/(((l<<1)+1)*factorial(l-m)))*val;
+    }
+}
 
 double Pleg(int l, int m, double x){
     double front=1;
     double val;
-    double PI=3.1415926;
+    double PI=3.141592653589793;
 
-    if (abs(x)>1||m>l||m<0){
+    if (abs(x)>1 || m>l || m<0){
         cout<<"that's not going to work."<<endl;
-        return 0;
+        return -1;
     }
+    else{
+        if(m&1!=0){
+            front=-1;
+        }
+        else{
+            front=1;
+        }
 
-    for(int i=0;i<m;i++){
-        front*=-1;
+        val=front*sqrt(((m<<1)+1)/((PI*4)*factorial(m<<1)))*doubfact((m<<1)-1)*xval(1-x*x,m);
+
+        for(int i=0;m+i<l;i++){
+            val*=x*sqrt((m<<1)+3);
+        }
+
+        return val;
     }
-
-    val=front*sqrt((2*m+1)/(4*PI*factorial(2*m))*doubfact(2*m-1)*xval(1-x*x,m);
-
-    for(int i=0;m+i<l;i++){
-        val*=x*sqrt(2*m+3)
-    }
-
-    return val;
 }
 
 double xval(double val, int m){
     double num=1;
-    if m%2==0{
-        int hold=floor(m/2);
-        for(int i=0;i<hold;i++){
+    int hold=m>>1;
+    
+    for(int i=0;i<hold;i++){
             num*=val;
-        }
     }
-    else{
-        int hold=floor(m/2);
-        for(int i=0;i<hold;i++){
-            num*=val;
-        } 
+    
+    if(m&1){
         num*=sqrt(val);
-    }
+    }else{}
+
+    return num;
 }
 
 
@@ -54,28 +71,36 @@ double factorial(int val){
 }
 
 double doubfact(int val){
+    int loop=val;
     double num=1;
-    for(int i=0,val-2*i>0;i++){
-        num*=val-2*i;
+    for(int i=0;(loop-(i<<1))>0;i++){
+        num*=val-(i<<1);
     }
     return num;
 }
 
-
 int main(){
     int l,m;
-    double bin=1<<10;
+    double hold;
+    double x=0;
+    double bin=1<<3;
+    ofstream myfile;
+    myfile.open("LegPlot.dat");
 
     cout<<"What is your l value?"<<endl;
-    cim>>l;
+    cin>>l;
     cout<<"what about m value?(shouldn't be bigger than l)"<<endl;
     cin>>m;
     cout<<"nice, calculating...."<<endl;
 
-    for(int i=0;i/bin<1;i++){
-        
+    for(int i=0;x<=1;i++){
+        hold = Leg(l,m,x);
+        if(hold==(-1)){break;}
+        myfile<<x<<" "<<hold<<endl;
+        cout<<"Leg val of "<<x<<" is "<<hold<<endl;
+        x=(i+1)/bin;
     }
-
-
+    myfile.close();
+    cout<<"done"<<endl;
     return 0;
 }
