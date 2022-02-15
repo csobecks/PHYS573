@@ -1,3 +1,3 @@
 ## Homework 3
 
-The special function I have chosen is 
+The special functions I have chosen are the spherical harmonics, Legendre polynomials, and the Associated Legendre Polynomials. I've chosen these three because I wanted to do the spherical harmonics, but that requires the other two polynomials. The spherical harmonics arise in a number of places in quantum mechanics and electromagnetism. One specific example of their use is when calculating the wave function for the Hydrogen atom. 
