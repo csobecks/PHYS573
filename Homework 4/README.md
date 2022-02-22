@@ -2,4 +2,4 @@
 
 The generator I have created is a combined generator that uses the LCG Modulo 2^64, 64-bit Xorshift, and MLCG with m>>2^32,m Prime methods. The period of this generator has the period of the lowest generator. In this case this would be the MLCG with m>>2^32,m Prime generator, with a period of m-1. For the numbers I'm using, this comes out to be 2^42 - 22. 
 
-The physics application of my random number generator is
+The physics application of my random number generator is to take a random walk to try to fill out the area of a circle. While this seems like a very simple example, this is something similar to what done in monte carlo simulations. The point is to take a random point and check if that point falls within a boundary. If It doesn't, then the point isn't accepted. If it is, then the point is added to a list. After many iterations, this process will fill out the area of the function that is coded in. This can be seen working successfully in the walk.pdf file.

@@ -1,7 +1,7 @@
 # myplot
 # load "randtest.plt"
 
-plot "randnum.dat"
+plot "randnum.dat" using 1:2
 set terminal pdf
 set output "randnum.pdf"
 replot
