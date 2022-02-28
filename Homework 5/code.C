@@ -1,6 +1,6 @@
 //HW5 code
 void code(){
-    auto c = new TCanvas("c","Error Function Graph",0,0,500,500);
+    auto c = new TCanvas("c","Complimentary Error Function Graph",0,0,500,500);
     double x, y, z, z1, r2=2.0, P = 3.0;
     int np = 300;
     auto dt = new TGraph2D();
