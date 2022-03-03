@@ -1,0 +1,44 @@
+PBS_VERSION=TORQUE-6.1.1.1
+PBS_JOBNAME=Farm
+PBS_ENVIRONMENT=PBS_BATCH
+PBS_O_WORKDIR=/nics/b/home/csobecks/p643/outbox/home6/farmsim
+PBS_TASKNUM=1
+PBS_O_HOME=/nics/b/home/csobecks
+PBS_WALLTIME=300
+PBS_MOMPORT=15003
+PBS_GPUFILE=/var/spool/torque/aux//5666934.apollo-acfgpu
+PBS_O_QUEUE=debug
+PBS_O_LOGNAME=csobecks
+PBS_O_LANG=en_US.UTF-8
+PBS_JOBCOOKIE=81CB00BDB1EB27039856A5992C9DE982
+PBS_NODENUM=0
+PBS_NUM_NODES=1
+PBS_O_SHELL=/bin/bash
+PBS_JOBID=5666934.apollo-acf
+PBS_O_HOST=acf-login5.acf.nics.utk.edu
+PBS_VNODENUM=0
+PBS_QUEUE=debug
+PBS_O_MAIL=/var/spool/mail/csobecks
+PBS_O_SUBMIT_FILTER=/usr/local/sbin/torque_submitfilter
+PBS_MICFILE=/var/spool/torque/aux//5666934.apollo-acfmic
+PBS_NP=16
+PBS_O_SERVER=apollo-acf
+PBS_NUM_PPN=16
+PBS_NODEFILE=/var/spool/torque/aux//5666934.apollo-acf
+0: My sum is 0.000000
+2: My sum is 6.000000
+4: My sum is 12.000000
+1: My sum is 3.000000
+6: My sum is 18.000000
+8: My sum is 24.000000
+10: My sum is 30.000000
+12: My sum is 36.000000
+14: My sum is 42.000000
+9: My sum is 27.000000
+3: My sum is 9.000000
+11: My sum is 33.000000
+7: My sum is 21.000000
+15: My sum is 45.000000
+5: My sum is 15.000000
+13: My sum is 39.000000
+0: Total sum is 360.000000

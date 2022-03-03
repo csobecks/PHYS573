@@ -1,0 +1,13 @@
+#PBS -S /bin/bash
+#PBS -A ACF-UTK0182
+#PBS -l nodes=1:ppn=16
+#PBS -l walltime=00:05:00
+#PBS -q debug
+#PBS -N Farm
+
+cd $PBS_O_WORKDIR
+
+module load openmpi/2.1.1
+env | grep PBS | grep -v PATH
+mpirun -n 16 ./mysim
+sleep 10
