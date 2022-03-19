@@ -1,22 +1,18 @@
 #include <iostream>
 #include <fstream>
-#include <math.h>
 using namespace std;
 
 #include <gsl/gsl_errno.h>
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_odeiv.h>
 
-#define PI 3.14159
-
 int
 func (double t, const double y[], double f[],
       void *params)
 {
   double c = *(double *)params;
-  f[0] = y[2];
-  f[1] = y[1];
-  f[2] = c*y[1] + 6*y[0]*y[1];
+  f[0] = y[1];
+  f[1] = c*y[0]+3*y[0]*y[0];
   return GSL_SUCCESS;
 }
 
@@ -26,20 +22,14 @@ jac (double t, const double y[], double *dfdy,
 {
   double c = *(double *)params;
   gsl_matrix_view dfdy_mat 
-    = gsl_matrix_view_array (dfdy, 3, 3);
+    = gsl_matrix_view_array (dfdy, 2, 2);
   gsl_matrix * m = &dfdy_mat.matrix; 
   gsl_matrix_set (m, 0, 0, 0.0);
-  gsl_matrix_set (m, 0, 1, 0.0);
-  gsl_matrix_set (m, 0, 2, 1.0);
-  gsl_matrix_set (m, 1, 0, 0.0);
-  gsl_matrix_set (m, 1, 1, 1.0);
-  gsl_matrix_set (m, 1, 2, 0.0);
-  gsl_matrix_set (m, 2, 0, c+6*y[0]);
-  gsl_matrix_set (m, 2, 1, 6*y[1]);
-  gsl_matrix_set (m, 2, 2, 0.0);
+  gsl_matrix_set (m, 0, 1, 1.0);
+  gsl_matrix_set (m, 1, 0, c+6*y[0]);
+  gsl_matrix_set (m, 1, 1, 0.0);
   dfdt[0] = 0.0;
   dfdt[1] = 0.0;
-  dfdt[2] = 0.0;
   return GSL_SUCCESS;
 }
      
@@ -56,13 +46,13 @@ main (void)
   gsl_odeiv_step * s 
     = gsl_odeiv_step_alloc (T, 2);
   
-  double c = 1e3;
-  gsl_odeiv_system sys = {func, jac, 3, &c};
+  double c = 1.0;
+  gsl_odeiv_system sys = {func, jac, 2, &c};
   
-  double t = 0, t1 = 2*c;
+  double t = -0.5, t1 = 1.5;
   double h = 1e-2;
-  double y[3] = { cos(PI*y[0]), -PI*sin(PI*y[0]) , -PI*PI*cos(PI*y[0])}, y_err[3];
-  double dydt_in[3], dydt_out[3];
+  double y[2] = { 0.01, 0.0 }, y_err[2];
+  double dydt_in[2], dydt_out[2];
   
   /* initialise dydt_in from system parameters */
   GSL_ODEIV_FN_EVAL(&sys, t, y, dydt_in);
@@ -75,16 +65,16 @@ main (void)
 					 dydt_out, 
 					 &sys);
       
-      if (status != GSL_SUCCESS){break;}
+      if (status != GSL_SUCCESS)
+	break;
       
       dydt_in[0] = dydt_out[0];
       dydt_in[1] = dydt_out[1];
-      dydt_in[2] = dydt_out[2];
       
       t += h;
       
-      //printf ("%.5e %.5e %.5e %.5e\n", t, y[0], y[1], y[2]);
-      myfile << t << " " << y[0] << " " << y[1] << " " << y[2] << endl;
+      printf ("%.5e %.5e %.5e\n", t, y[0], y[1]);
+      myfile << t << " " << y[0] << " " << y[1] << endl;
     }
   
   gsl_odeiv_step_free (s);
