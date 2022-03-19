@@ -1,10 +1,12 @@
 #include <iostream>
 #include <fstream>
+#include <math.h>
 using namespace std;
 
 #include <gsl/gsl_errno.h>
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_odeiv.h>
+#define PI 3.141592
 
 int
 func (double t, const double y[], double f[],
@@ -12,7 +14,7 @@ func (double t, const double y[], double f[],
 {
   double c = *(double *)params;
   f[0] = y[1];
-  f[1] = c*y[0]+3*y[0]*y[0];
+  f[1] = y[0]-3*y[0]*y[0];
   return GSL_SUCCESS;
 }
 
@@ -26,7 +28,7 @@ jac (double t, const double y[], double *dfdy,
   gsl_matrix * m = &dfdy_mat.matrix; 
   gsl_matrix_set (m, 0, 0, 0.0);
   gsl_matrix_set (m, 0, 1, 1.0);
-  gsl_matrix_set (m, 1, 0, c+6*y[0]);
+  gsl_matrix_set (m, 1, 0, 1.0-6.0*y[0]);
   gsl_matrix_set (m, 1, 1, 0.0);
   dfdt[0] = 0.0;
   dfdt[1] = 0.0;
@@ -46,12 +48,12 @@ main (void)
   gsl_odeiv_step * s 
     = gsl_odeiv_step_alloc (T, 2);
   
-  double c = 1.0;
+  double c = 0.022;
   gsl_odeiv_system sys = {func, jac, 2, &c};
   
-  double t = -0.5, t1 = 1.5;
+  double t = 0.0, t1 = 4.0;
   double h = 1e-2;
-  double y[2] = { 0.01, 0.0 }, y_err[2];
+  double y[2] = { sin(y[0]), cos(y[0]) }, y_err[2];
   double dydt_in[2], dydt_out[2];
   
   /* initialise dydt_in from system parameters */

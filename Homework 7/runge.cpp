@@ -16,7 +16,7 @@ func (double t, const double y[], double f[],
   double c = *(double *)params;
   f[0] = y[2];
   f[1] = y[1];
-  f[2] = c*y[1] + 6*y[0]*y[1];
+  f[2] = -6*y[0]*y[1];
   return GSL_SUCCESS;
 }
 
@@ -34,8 +34,8 @@ jac (double t, const double y[], double *dfdy,
   gsl_matrix_set (m, 1, 0, 0.0);
   gsl_matrix_set (m, 1, 1, 1.0);
   gsl_matrix_set (m, 1, 2, 0.0);
-  gsl_matrix_set (m, 2, 0, c+6*y[0]);
-  gsl_matrix_set (m, 2, 1, 6*y[1]);
+  gsl_matrix_set (m, 2, 0, -6*y[1]);
+  gsl_matrix_set (m, 2, 1, -6*y[0]);
   gsl_matrix_set (m, 2, 2, 0.0);
   dfdt[0] = 0.0;
   dfdt[1] = 0.0;
@@ -56,12 +56,12 @@ main (void)
   gsl_odeiv_step * s 
     = gsl_odeiv_step_alloc (T, 2);
   
-  double c = 1e3;
+  double c = 1.0;
   gsl_odeiv_system sys = {func, jac, 3, &c};
   
   double t = 0, t1 = 2*c;
   double h = 1e-2;
-  double y[3] = { cos(PI*y[0]), -PI*sin(PI*y[0]) , -PI*PI*cos(PI*y[0])}, y_err[3];
+  double y[3] = { sin(y[0]), cos(y[0]), -sin(y[1])}, y_err[3];
   double dydt_in[3], dydt_out[3];
   
   /* initialise dydt_in from system parameters */
@@ -83,7 +83,7 @@ main (void)
       
       t += h;
       
-      //printf ("%.5e %.5e %.5e %.5e\n", t, y[0], y[1], y[2]);
+      printf ("%.5e %.5e %.5e %.5e\n", t, y[0], y[1], y[2]);
       myfile << t << " " << y[0] << " " << y[1] << " " << y[2] << endl;
     }
   
