@@ -1,0 +1,11 @@
+Calculate restricted, planar, circular three-body solution.
+Use Runge-Kutta 4-th order method to solve ODEs.
+
+commands:
+
+make
+./threebody
+(provide input commands)
+module load gnuplot
+gnuplot 'threebody.plt'
+mypdf trajectory

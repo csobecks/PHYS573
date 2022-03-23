@@ -1,0 +1,8 @@
+commands:
+
+make
+./threebody
+(provide input commands)
+module load gnuplot
+gnuplot 'threebody.plt'
+mypdf trajectory
