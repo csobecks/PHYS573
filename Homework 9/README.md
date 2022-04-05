@@ -1,0 +1,3 @@
+## Homework 9
+
+For this assignment I chose to do the 1D time dependend schrodinger equation. This was difficult because I had to change one dimension to time. This meant that in my update, one index was looking only at the previous value. Another issue is the mesh drift instabilitiy. I countered this by decreasing all of the position indices by one so that it would line up. This was successful as seen in the plot. The initial wave is a guassian that spreads out over time. This is what we expect from the theory. 
