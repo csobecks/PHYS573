@@ -85,7 +85,8 @@ uk = c(23, 36, 40, 51, 85, 115, 163, 206, 273, 321, 373, 456, 590, 707, 1140, 13
       120067, 124743, 129044, 133495, 138078, 143464, 148377, 152840, 157149, 161145,
       165221, 171253)
 #---------------------------------
-rr = c(rep(2.5, 5), rep(2.3, 5), rep(2.9, 5), rep(3, 5), rep(2.1, 5), rep(1, 4), rep(0.25, 6), rep(0.3, 10), rep(0.5, 5), rep(0.2, 50))  # resulting/estimated infection rate over time pattern for Australia
+rr = c(rep(2.5, 5), rep(2.3, 5), rep(2.9, 5), rep(3, 5), rep(2.1, 5), rep(1, 4), rep(0.25, 6), rep(0.3, 10), rep(0.5, 5), rep(0.2, 50))  
+# resulting/estimated infection rate over time pattern for Australia
 rr = c(rep(3.4,10), rep(3.1,10), rep(2.2, 5),rep(1.7, 4),rep(1.4, 6), rep(1.2, 6), rep(1.1, 4), rep(1, 8), rep(0.9, 7),rep(0.6,10),rep(0.1, 30))
 #  resulting/estimated infection rate over time pattern for UK
 #---------------------------------
@@ -94,7 +95,7 @@ set.seed(10)
   outMA = newMA = NULL; gtotalA = NULL
   for(m in 1:1000) {
 #     runi = TransSimu(nd=100, muT=4.4,sizeV=0.9,n0=10)  #oz  1 May
-     runi = TransSimu(nd=100, muT=3.8,sizeV=1.1,n0=9)   #uk  1 May
+   runi = TransSimu(nd=100, muT=3.8,sizeV=1.1,n0=9)   #uk  1 May
    this = runi$riskpopu[1:150]   
    outMA = rbind(outMA, this)
    thisnew = runi$dailynew[1:150] 
