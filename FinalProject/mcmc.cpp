@@ -10,16 +10,6 @@ int main(){
     static ofstream f_data, f_site, f_a_rate;
 
     if(first_time){
-        // f_data.open("corr.txt");
-        // if(f_data.bad()){
-        //     cout<<"Failed to open correlator file\n"<<flush;
-        // }
-
-        // f_a_rate.open("acceptance.txt");
-        // if (f_a_rate.bad()){
-        //     cout<<"Failed to open acceptance rate file\n"<<flush;
-        // }
-
         f_site.open("site.txt");
         if(f_site.bad()){
             cout<<"Failed to open sites data file\n"<<flush;
@@ -48,14 +38,6 @@ int main(){
     double dS; //change in action
     double site[T], old_site[T], new_site[T];
 
-    //observables
-
-    double corr[T]; //to store correlator data
-    double corr_sq[T], std_err[T];
-    double xsq=0.0, xsq_sq=0.0;
-    double x_val=0.0, x_val_sq=0.0;
-    double std_err_x_val, std_err_xsq;
-
     int tau; //to choose a random site
 
     //write out initially 
@@ -63,15 +45,10 @@ int main(){
     cout<<"a="<< a<<" b="<<b<<" f="<<f<< endl;
     cout<<"mass is "<<m<<endl;
 
-    //initilize observables etc
+    //initilize
     for(int t=0; t<T;t++){
         // site[t]=exp(-(t*t)/2.0)
         site[t]=(drand48()-0.5);
-        old_site[t]=0.0;
-        new_site[t]=0.0;
-        corr[t]=0.0;
-        std_err[t]=0.0;
-        corr_sq[t]=0.00;
     }
 
     //begin thermalization MC sweeps
@@ -191,45 +168,9 @@ int main(){
             tot++;
             //write out x[0] to a file
             f_site<<tot<<"\t"<<site[0]<<endl;
-
-            //compute correlator, etc.
-            for(int t=0;t<T;t++){
-                corr[t]=corr[t]+site[t]*site[0]/(2.0*m*omega);
-                corr_sq[t]=corr_sq[t]+pow(site[t]*site[0]/(2.0*m*omega),2.0);
-
-                x_val=x_val+site[t];
-                x_val_sq = x_val_sq+site[t]*site[t];
-
-                xsq=xsq+site[t]*site[t]/(2.0*m*omega);
-                xsq_sq=xsq_sq+pow(site[t],4.0)/(pow(2.0*m*omega,2.0));
-            }
         }
     }// end generation MC steps
 
-    //evaluate error in observables
-    // for(int t=0;t<T;t++){
-    //     corr[t]=corr[t]/tot;
-    //     corr_sq[t]=corr_sq[t]/tot;
-    //     std_err[t]=sqrt((corr_sq[t]-corr[t]*corr[t])/tot);
-    // }
-
-    // xsq=xsq/(tot*T);
-    // xsq_sq=xsq_sq/(tot*T);
-    // x_val=x_val/(tot*T);
-    // x_val_sq=x_val_sq/(tot*T);
-    // std_err_xsq=sqrt((xsq_sq-xsq*xsq)/(tot*T));
-    // std_err_x_val=sqrt((x_val_sq-x_val*x_val)/(tot*T));
-
-    // cout<<"\n<x^2>= "<<xsq<<"\t"<<std_err_xsq<<"\n"<<endl;
-    // cout<<"\n<x>= "<<x_val<<"\t"<<std_err_x_val<<"\n"<<endl;
-
-    // cout<<"\nE_0=m*omega^2*<x^2>= "<<m*omega*omega*xsq<<"\t"<<m*omega*omega*std_err_xsq<<"\n"<<endl;
-
-    // //write out correlator to a file
-    // for(int t=0;t<T;t++){
-    //     f_data<<t<<"\t"<<corr[t]<<"\t"<<std_err[t]<<endl;
-    // }
-    // f_data<<T<<"\t"<<corr[0]<<"\t"<<std_err[0]<<endl;
 
     return 0;
 }
